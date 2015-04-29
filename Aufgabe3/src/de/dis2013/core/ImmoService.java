@@ -76,7 +76,7 @@ public class ImmoService {
 	public Makler getMaklerById(int id) {
 		Session session = sessionFactory.getCurrentSession();
 		session.beginTransaction();
-		Query query = session.createSQLQuery("select * from estateAgent where id = '" + id + "'").addEntity(Makler.class);
+		Query query = session.createSQLQuery("select * from makler where id = '" + id + "'").addEntity(Makler.class);
 		
 		Set<Makler> makler = new HashSet<Makler>();
 		makler.addAll((List<Makler>) query.list());
@@ -101,7 +101,7 @@ public class ImmoService {
 	public Makler getMaklerByLogin(String login) {
 		Session session = sessionFactory.getCurrentSession();
 		session.beginTransaction();
-		Query query = session.createSQLQuery("select * from estateAgent where login = '" + login + "'").addEntity(Makler.class);
+		Query query = session.createSQLQuery("select * from makler where login = '" + login + "'").addEntity(Makler.class);
 		
 		Set<Makler> makler = new HashSet<Makler>();
 		makler.addAll((List<Makler>) query.list());
@@ -135,7 +135,7 @@ public class ImmoService {
 		
 		Session session = sessionFactory.getCurrentSession();
 		session.beginTransaction();
-		Query query = session.createSQLQuery("select * from person where id = '" + id + "'").addEntity(Person.class);
+		Query query = session.createSQLQuery("select * from personen where id = '" + id + "'").addEntity(Person.class);
 		
 //		List result = query.list();
 		Set<Person> person = new HashSet<Person>();
@@ -159,11 +159,10 @@ public class ImmoService {
 	 */
 	public void addMakler(Makler m) {
 		makler.add(m);
-//		Session session = sessionFactory.getCurrentSession();
-//		session.beginTransaction();
-//		session.save(m);
-//		session.getTransaction().commit();
-		add(m);
+		Session session = sessionFactory.getCurrentSession();
+		session.beginTransaction();
+		session.save(m);
+		session.getTransaction().commit();
 	}
 	
 	/**
@@ -196,7 +195,7 @@ public class ImmoService {
 	public Set<Person> getAllPersons() {
 		Session session = sessionFactory.getCurrentSession();
 		session.beginTransaction();
-		Query query = session.createSQLQuery("select * from person").addEntity(Person.class);
+		Query query = session.createSQLQuery("select * from personen").addEntity(Person.class);
 		
 //		List result = query.list();
 		Set<Person> person = new HashSet<Person>();
@@ -501,7 +500,7 @@ public class ImmoService {
 		
 //		session.save(p1);
 //		session.save(p2);
-		
+//		
 		//TODO: Diese Personen werden im Speicher und der DB gehalten
 //		this.addPerson(p1);
 //		this.addPerson(p2);
